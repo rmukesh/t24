@@ -7,29 +7,63 @@ package com.temenos.transact;
 @javax.persistence.Entity
 public class Account implements java.io.Serializable {
 
-    static final long serialVersionUID = 1L;
+	static final long serialVersionUID = 1L;
 
-    @javax.persistence.GeneratedValue(strategy = javax.persistence.GenerationType.AUTO, generator = "ACCOUNT_ID_GENERATOR")
-    @javax.persistence.Id
-    @javax.persistence.SequenceGenerator(name = "ACCOUNT_ID_GENERATOR", sequenceName = "ACCOUNT_ID_SEQ")
-    private java.lang.Long id;
+	@javax.persistence.GeneratedValue(strategy = javax.persistence.GenerationType.AUTO, generator = "ACCOUNT_ID_GENERATOR")
+	@javax.persistence.Id
+	@javax.persistence.SequenceGenerator(name = "ACCOUNT_ID_GENERATOR", sequenceName = "ACCOUNT_ID_SEQ")
+	private java.lang.Long id;
 
-    public Account() {
-    }
-    
-    public Account(java.lang.Long id) {
-        this.id = id;
-    }
+	@org.kie.api.definition.type.Label(value = "Name")
+	private java.lang.String name;
 
-    public java.lang.Long getId() {
-        return this.id;
-    }
-    
-    public void setId(java.lang.Long id) {
-        this.id = id;
-    }
+	@org.kie.api.definition.type.Label(value = "CustomerID")
+	private java.math.BigInteger customerID;
 
+	@org.kie.api.definition.type.Label(value = "Type")
+	private java.lang.String type;
 
+	public Account() {
+	}
 
+	public java.lang.Long getId() {
+		return this.id;
+	}
+
+	public void setId(java.lang.Long id) {
+		this.id = id;
+	}
+
+	public java.lang.String getName() {
+		return this.name;
+	}
+
+	public void setName(java.lang.String name) {
+		this.name = name;
+	}
+
+	public java.math.BigInteger getCustomerID() {
+		return this.customerID;
+	}
+
+	public void setCustomerID(java.math.BigInteger customerID) {
+		this.customerID = customerID;
+	}
+
+	public java.lang.String getType() {
+		return this.type;
+	}
+
+	public void setType(java.lang.String type) {
+		this.type = type;
+	}
+
+	public Account(java.lang.Long id, java.lang.String name,
+			java.math.BigInteger customerID, java.lang.String type) {
+		this.id = id;
+		this.name = name;
+		this.customerID = customerID;
+		this.type = type;
+	}
 
 }

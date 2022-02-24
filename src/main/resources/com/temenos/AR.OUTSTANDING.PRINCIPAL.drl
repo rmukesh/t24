@@ -1,0 +1,28 @@
+
+package com.temenos;
+
+import java.lang.Number;
+
+rule "AR.OUTSTANDING.PRINCIPAL2"
+	dialect "mvel"
+    ruleflow-group "temenos"
+	when
+		AR_CUSTOMER_CHARGE( VARIATION == "PRINCIPAL" )
+	then
+		$rule = new RULE();
+		$rule.setSTATUS( "TRUE" );
+		$rule.setMESSAGE( "Tax calculation base by customer's jurisdiction: Outstanding Principal" );
+		insert( $rule );
+end
+
+rule "AR.OUTSTANDING.PRINCIPAL1"
+	dialect "mvel"
+	ruleflow-group "temenos"
+	when
+		AR_CUSTOMER_CHARGE( VARIATION != "PRINCIPAL" )
+	then
+		$rule = new RULE();
+		$rule.setSTATUS( "FALSE" );
+		$rule.setMESSAGE( "Tax calculation base by customer's jurisdiction: Not Outstanding Principal" );
+		insert( $rule );
+end

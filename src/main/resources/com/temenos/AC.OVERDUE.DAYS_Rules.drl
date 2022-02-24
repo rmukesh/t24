@@ -1,0 +1,58 @@
+package com.temenos;
+
+import java.lang.Number;
+
+rule "AC.OVERDUE.DAYS1"
+	dialect "mvel"
+    ruleflow-group "temenos"
+	when
+		ACCOUNT_ODDAYS( OVERDUE_DAYS == 0 )
+	then
+		$rule = new RULE();
+		$rule.setMESSAGE( "STANDARD" );
+		insert( $rule );
+end
+
+rule "AC.OVERDUE.DAYS2"
+	dialect "mvel"
+    ruleflow-group "temenos"
+	when
+		ACCOUNT_ODDAYS( OVERDUE_DAYS > 0 && OVERDUE_DAYS <5 )
+	then
+		$rule = new RULE();
+		$rule.setMESSAGE( "WATCHLIST" );
+		insert( $rule );
+end
+
+rule "AC.OVERDUE.DAYS3"
+	dialect "mvel"
+    ruleflow-group "temenos"
+	when
+		ACCOUNT_ODDAYS( OVERDUE_DAYS >= 5 && OVERDUE_DAYS <10 )
+	then
+		$rule = new RULE();
+		$rule.setMESSAGE( "SUB-STANDARD" );
+		insert( $rule );
+end
+
+rule "AC.OVERDUE.DAYS4"
+	dialect "mvel"
+    ruleflow-group "temenos"
+	when
+		ACCOUNT_ODDAYS( OVERDUE_DAYS >= 10 && OVERDUE_DAYS <15 )
+	then
+		$rule = new RULE();
+		$rule.setMESSAGE( "DOUBTFUL" );
+		insert( $rule );
+end
+
+rule "AC.OVERDUE.DAYS5"
+	dialect "mvel"
+    ruleflow-group "temenos"
+	when
+		ACCOUNT_ODDAYS( OVERDUE_DAYS > 15 )
+	then
+		$rule = new RULE();
+		$rule.setMESSAGE( "WRITEOFF" );
+		insert( $rule );
+end
